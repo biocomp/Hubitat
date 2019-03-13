@@ -87,7 +87,7 @@ tiles(scale: 2){
 
 }
     preferences {
-        input description: "Once you change values on this page, the corner of the \"configuration\" icon will change orange until all configuration parameters are updated.", title: "Settings", displayDuringSetup: false, type: "paragraph", element: "paragraph"
+        input description: "Once you change values on this page, the corner of the \"configuration\" icon will change orange until all configuration parameters are updated.", title: "Settings", displayDuringSetup: false, type: "text"
 		generate_preferences(configuration_model())
     }
 }
@@ -447,8 +447,7 @@ def generate_preferences(configuration_model)
                 input "${it.@index}", "number",
                     title:"${it.@label}\n" + "${it.Help}",
                     range: "${it.@min}..${it.@max}",
-                    defaultValue: "${it.@value}",
-                    displayDuringSetup: "${it.@displayDuringSetup}"
+                    defaultValue: "${it.@value}"
             break
             case "list":
                 def items = []
@@ -456,27 +455,23 @@ def generate_preferences(configuration_model)
                 input "${it.@index}", "enum",
                     title:"${it.@label}\n" + "${it.Help}",
                     defaultValue: "${it.@value}",
-                    displayDuringSetup: "${it.@displayDuringSetup}",
                     options: items
             break
             case "decimal":
                input "${it.@index}", "decimal",
                     title:"${it.@label}\n" + "${it.Help}",
                     range: "${it.@min}..${it.@max}",
-                    defaultValue: "${it.@value}",
-                    displayDuringSetup: "${it.@displayDuringSetup}"
+                    defaultValue: "${it.@value}"
             break
             case "boolean":
                input "${it.@index}", "bool",
                     title: it.@label != "" ? "${it.@label}\n" + "${it.Help}" : "" + "${it.Help}",
-                    defaultValue: "${it.@value}",
-                    displayDuringSetup: "${it.@displayDuringSetup}"
+                    defaultValue: "${it.@value}"
             break
             case "paragraph":
                input title: "${it.@label}",
                     description: "${it.Help}",
-                    type: "paragraph",
-                    element: "paragraph"
+                    type: "text"
             break
         }  
     }
